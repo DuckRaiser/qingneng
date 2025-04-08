@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>欧洲氢能行业市场分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body class="bg-white text-gray-900">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">欧洲氢能行业市场分析</h1>
+            <p class="text-gray-600 text-lg">金属部件制造商在不断增长的氢能经济中的战略机遇</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                <div class="flex items-center mb-4">
+                    <i data-lucide="trending-up" class="w-5 h-5 mr-2 text-green-600"></i>
+                    <h3 class="text-lg font-semibold">市场增长</h3>
+                </div>
+                <p class="text-3xl font-bold mb-2">25-30%<span class="text-sm font-normal text-gray-500 ml-1">CAGR</span></p>
+                <p class="text-gray-600">欧洲氢能市场估计为70-100亿欧元，在欧盟气候目标的推动下正在迅速扩张</p>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                <div class="flex items-center mb-4">
+                    <i data-lucide="target" class="w-5 h-5 mr-2 text-blue-600"></i>
+                    <h3 class="text-lg font-semibold">2030年欧盟目标</h3>
+                </div>
+                <p class="text-3xl font-bold mb-2">20M<span class="text-sm font-normal text-gray-500 ml-1">吨</span></p>
+                <p class="text-gray-600">到2030年生产1000万吨可再生氢气并进口1000万吨</p>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                <div class="flex items-center mb-4">
+                    <i data-lucide="euro" class="w-5 h-5 mr-2 text-purple-600"></i>
+                    <h3 class="text-lg font-semibold">可用资金</h3>
+                </div>
+                <p class="text-3xl font-bold mb-2">€1B+<span class="text-sm font-normal text-gray-500 ml-1">资金</span></p>
+                <p class="text-gray-600">通过欧盟机制，包括Clean Hydrogen Partnership、IPCEIs和国家项目</p>
+            </div>
+        </div>
+
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">氢能行业结构</h2>
+                <div class="flex space-x-2">
+                    <button id="btn-overview" class="px-4 py-2 rounded-md bg-blue-600 text-white text-sm active-tab">概览</button>
+                    <button id="btn-companies" class="px-4 py-2 rounded-md bg-gray-200 text-gray-700 text-sm">主要公司</button>
+                </div>
+            </div>
+            
+            <div id="industry-overview" class="block">
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 mb-6">
+                    <canvas id="sectors-chart" height="300"></canvas>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                    <h3 class="text-lg font-semibold mb-4">氢能价值链和您的部件定位</h3>
+                    <div id="value-chain-diagram" class="w-full h-80 overflow-x-auto"></div>
+                </div>
+            </div>
+            
+            <div id="industry-companies" class="hidden">
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr class="bg-gray-100 border-b">
+                                    <th class="py-3 px-4 text-left text-sm font-semibold">子行业</th>
+                                    <th class="py-3 px-4 text-left text-sm font-semibold">主要企业</th>
+                                    <th class="py-3 px-4 text-left text-sm font-semibold">部件相关性</th>
+                                    <th class="py-3 px-4 text-left text-sm font-semibold">市场地位</th>
+                                </tr>
+                            </thead>
+                            <tbody id="companies-table">
+                                <!-- 由JavaScript填充 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6">您产品的技术应用</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center text-white mr-3">
+                            <i data-lucide="circuit-board" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold">铜母线</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="inline-flex rounded-full bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 mt-0.5 mr-2">高增长</span>
+                            <span>电解槽配电系统（100-1000安培）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-flex rounded-full bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 mt-0.5 mr-2">中等</span>
+                            <span>燃料电池堆连接，带专业涂层</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-flex rounded-full bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 mt-0.5 mr-2">稳定</span>
+                            <span>符合标准工业规格的控制系统</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-flex rounded-full bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 mt-0.5 mr-2">新兴</span>
+                            <span>具有高可靠性的基础设施电力管理</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-zinc-600 rounded-full flex items-center justify-center text-white mr-3">
+                            <i data-lucide="component" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold">镍电极</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="inline-flex rounded-full bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 mt-0.5 mr-2">高增长</span>
+                            <span>碱性电解槽（KOH耐受性20-30%）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-flex rounded-full bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 mt-0.5 mr-2">中等</span>
+                            <span>具有长期稳定性的碱性燃料电池</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-flex rounded-full bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 mt-0.5 mr-2">新兴</span>
+                            <span>SOFC/SOEC（镍陶瓷）用于高温（700-850°C）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-flex rounded-full bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 mt-0.5 mr-2">小众</span>
+                            <span>带表面处理的专业催化应用</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white mr-3">
+                            <i data-lucide="grid" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold">镍网/镍网格</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="inline-flex rounded-full bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 mt-0.5 mr-2">高增长</span>
+                            <span>具有优化表面积的集流器</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-flex rounded-full bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 mt-0.5 mr-2">中等</span>
+                            <span>具有精确孔径大小的气体扩散层</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-flex rounded-full bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 mt-0.5 mr-2">专业</span>
+                            <span>具有表面处理能力的催化剂载体</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="inline-flex rounded-full bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 mt-0.5 mr-2">新兴</span>
+                            <span>具有精密制造工艺的膜生产</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">目标合作伙伴与客户</h2>
+                <div class="flex space-x-2">
+                    <button id="btn-map" class="px-4 py-2 rounded-md bg-blue-600 text-white text-sm active-tab">地图视图</button>
+                    <button id="btn-list" class="px-4 py-2 rounded-md bg-gray-200 text-gray-700 text-sm">列表视图</button>
+                </div>
+            </div>
+            
+            <div id="partner-map-view" class="block">
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                    <div id="partners-map" class="w-full h-96"></div>
+                </div>
+            </div>
+            
+            <div id="partner-list-view" class="hidden">
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr class="bg-gray-100 border-b">
+                                    <th class="py-3 px-4 text-left text-sm font-semibold">类别</th>
+                                    <th class="py-3 px-4 text-left text-sm font-semibold">公司</th>
+                                    <th class="py-3 px-4 text-left text-sm font-semibold">主要相关性</th>
+                                    <th class="py-3 px-4 text-left text-sm font-semibold">互动优先级</th>
+                                </tr>
+                            </thead>
+                            <tbody id="partners-table">
+                                <!-- 由JavaScript填充 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6">战略机会矩阵</h2>
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                <div id="opportunities-matrix" class="w-full h-96"></div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6">关键建议</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i data-lucide="target" class="w-5 h-5 mr-2 text-blue-600"></i>
+                        市场进入策略
+                    </h3>
+                    <ul class="space-y-3 list-disc ml-5">
+                        <li>优先考虑电解槽制造商作为即时目标客户，因其快速扩张和高部件需求</li>
+                        <li>将地理努力集中在德国、荷兰和北欧国家，这些国家引领氢能技术部署</li>
+                        <li>开发针对碱性电解应用优化的专业产品线，在这些应用中镍部件能提供最高价值</li>
+                        <li>在Hydrogen Europe和Clean Hydrogen Partnership组织的关键行业活动中建立存在感</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i data-lucide="lightbulb" class="w-5 h-5 mr-2 text-amber-600"></i>
+                        产品开发
+                    </h3>
+                    <ul class="space-y-3 list-disc ml-5">
+                        <li>通过专业涂层增强镍电极产品线，以提高在碱性环境中的电化学性能</li>
+                        <li>为电解槽系统开发具有优化载流能力和耐腐蚀性的铜母线</li>
+                        <li>为集流器和气体扩散层创建具有精确规格的标准化镍网产品系列</li>
+                        <li>投资与行业认证要求相一致的测试能力</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i data-lucide="handshake" class="w-5 h-5 mr-2 text-green-600"></i>
+                        合作伙伴策略
+                    </h3>
+                    <ul class="space-y-3 list-disc ml-5">
+                        <li>与领先的电解槽制造商（ThyssenKrupp Nucera、NEL ASA、Siemens Energy）开展共同开发合作</li>
+                        <li>加入Hydrogen Europe以获取行业网络和市场情报</li>
+                        <li>通过Clean Hydrogen Partnership建立研究合作以获得长期定位</li>
+                        <li>与相邻技术领域的专业部件供应商建立战略联盟</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i data-lucide="shield" class="w-5 h-5 mr-2 text-red-600"></i>
+                        风险管理
+                    </h3>
+                    <ul class="space-y-3 list-disc ml-5">
+                        <li>为关键原材料（镍、铜）开发双重采购策略，以缓解供应链风险</li>
+                        <li>监控技术转变，特别是PEM或SOEC加速采用，这可能影响部件优先级</li>
+                        <li>尽早与欧盟监管机构接触，以预测认证要求</li>
+                        <li>将目标应用多样化分布于多个氢能子行业，以降低市场集中风险</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="bg-gray-50 py-6 border-t border-gray-100">
+        <div class="container mx-auto px-4 text-center text-gray-600">
+            <p>Built By Copper Joint SCM</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener("wheel", (e)=> {
+            const isPinching = e.ctrlKey
+            if(isPinching) e.preventDefault()
+        }, { passive: false })
+    </script>
+    <script src="script.js"></script>
+    <script src="sectors-chart.js"></script>
+    <script src="value-chain.js"></script>
+    <script src="partners-map.js"></script>
+    <script src="opportunities.js"></script>
+</body>
+</html>
