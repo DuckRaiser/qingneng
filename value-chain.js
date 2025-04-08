@@ -159,5 +159,5 @@ document.addEventListener('DOMContentLoaded', () => {
         .attr("x", 20)
         .attr("y", 10)
         .style("font-size", "12px")
-        .text("您的关键产品");
+        .text("我司的关键产品");
 });
